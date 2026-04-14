@@ -49,14 +49,13 @@ export default function Browser() {
       setProgress(fakeProgress);
     }, 300);
 
-    try {
-      const res = await fetch("http://localhost:3001/browse", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: formattedUrl }),
-      });
+    const res = await fetch("https://portfolio-4r24.onrender.com/browse", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({ url: formattedUrl }),
+});
 
       const data: { image: string } = await res.json();
 
