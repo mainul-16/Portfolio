@@ -40,7 +40,8 @@ function Resume() {
           </Checkbox>
         </Fieldset>
 
-        <Fieldset legend="Internship">
+        <Fieldset legend="Agnirath Aerospace and Defence - Internship">
+          
           <Checkbox readOnly checked>
             Assembled and tested hardware components ensuring proper functionality.
           </Checkbox>
