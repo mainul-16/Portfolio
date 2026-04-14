@@ -16,7 +16,7 @@ export default function Browser() {
     return () => clearInterval(interval);
   }, []);
 
-  // 🔥 FIXED NAVIGATION FUNCTION
+  // navigation helper
   const navigate = (newUrl: string) => {
     let formattedUrl = newUrl;
     if (!newUrl.startsWith("http")) {
@@ -49,21 +49,29 @@ export default function Browser() {
       setProgress(fakeProgress);
     }, 300);
 
-    const res = await fetch("https://portfolio-4r24.onrender.com/browse", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({ url: formattedUrl }),
-});
+    try {
+      const res = await fetch("https://portfolio-4r24.onrender.com/browse", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url: formattedUrl }),
+      });
 
-      const data: { image: string } = await res.json();
+      const data: { image?: string; error?: string } = await res.json();
 
       clearInterval(interval);
       setProgress(100);
-      setStatus("Done");
 
-      setImage(data.image);
+      if (data.error) {
+        setStatus(data.error);
+      } else if (data.image) {
+        setImage(data.image);
+        setStatus("Done");
+      } else {
+        setStatus("No content received");
+      }
+
     } catch (err) {
       clearInterval(interval);
       setStatus("The page cannot be displayed");
@@ -145,7 +153,7 @@ export default function Browser() {
 
         {/* Main */}
         <div style={{ flex: 1, padding: 20, overflow: "auto" }}>
-          {!image && !loading && (
+          {!image && !loading && status === "Ready" && (
             <div>
               <h3>🌐 Welcome to the Internet</h3>
 
@@ -181,6 +189,13 @@ export default function Browser() {
             <div>
               <p>{status}</p>
               <p>Loading... {blink && <span>▮</span>}</p>
+            </div>
+          )}
+
+          {!loading && status !== "Ready" && !image && (
+            <div>
+              <h3>⚠️ Error</h3>
+              <p>{status}</p>
             </div>
           )}
 
