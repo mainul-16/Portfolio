@@ -21,7 +21,6 @@ function Resume() {
         </Fieldset>
 
         <Fieldset legend="Contact">
-          <p>📞 +91 – 9339242600</p>
           <p>✉️ mainulislam160105@gmail.com</p>
           <p>🐙 <a href="https://github.com/mainul-16" target="_blank" rel="noreferrer">github.com/mainul-16</a></p>
           <p>📍 Vidyasagar Pally, Katwa, Purba Burdwan – 713130</p>
